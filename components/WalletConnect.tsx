@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
