@@ -6,13 +6,15 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { 
     TOKENS, 
     fetchQuote, 
-    executeSwap, 
+    useSwap,
     convertFromTokenDecimals,
     type OrderResponse 
 } from '@/utils/swap';
+import { type ExecuteResponse } from '@/utils/transaction';
 
 export default function SwapInterface() {
     const { publicKey } = useWallet();
+    const { executeSwap } = useSwap();
     const [inputAmount, setInputAmount] = useState('');
     const [outputAmount, setOutputAmount] = useState('');
     const [inputToken, setInputToken] = useState(TOKENS.SOL);
@@ -20,6 +22,8 @@ export default function SwapInterface() {
     const [orderResponse, setOrderResponse] = useState<OrderResponse | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [swapStatus, setSwapStatus] = useState<ExecuteResponse | null>(null);
+    const [isExecuting, setIsExecuting] = useState(false);
 
     const handleFetchQuote = async () => {
         if (!publicKey || !inputAmount) return;
@@ -47,12 +51,20 @@ export default function SwapInterface() {
     const handleSwap = async () => {
         if (!publicKey || !orderResponse) return;
         
+        setIsExecuting(true);
+        setError('');
         try {
-            await executeSwap(orderResponse, publicKey);
+            const response = await executeSwap(orderResponse, publicKey);
+            setSwapStatus(response);
+            
+            if (response.status === "Failed") {
+                setError(`Swap failed: ${response.error || 'Unknown error'}`);
+            }
         } catch (error) {
             console.error('Error performing swap:', error);
             setError('Failed to execute swap. Please try again.');
         }
+        setIsExecuting(false);
     };
 
     return (
@@ -167,6 +179,36 @@ export default function SwapInterface() {
                                 Swap
                             </button>
                         </>
+                    )}
+
+                    {swapStatus && (
+                        <div style={{ 
+                            marginTop: 10,
+                            padding: 10,
+                            backgroundColor: swapStatus.status === "Success" ? '#e8f5e9' : '#ffebee',
+                            borderRadius: 4
+                        }}>
+                            <div>Status: {swapStatus.status}</div>
+                            {swapStatus.signature && (
+                                <div>
+                                    Transaction: 
+                                    <a 
+                                        href={`https://solscan.io/tx/${swapStatus.signature}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{ marginLeft: 5, color: '#2196F3' }}
+                                    >
+                                        View on Solscan
+                                    </a>
+                                </div>
+                            )}
+                            {swapStatus.inputAmountResult && swapStatus.outputAmountResult && (
+                                <div>
+                                    <div>Input: {swapStatus.inputAmountResult}</div>
+                                    <div>Output: {swapStatus.outputAmountResult}</div>
+                                </div>
+                            )}
+                        </div>
                     )}
                 </div>
             )}

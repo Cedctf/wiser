@@ -1,4 +1,6 @@
 import { PublicKey } from '@solana/web3.js';
+import { signTransaction, executeOrder, type ExecuteResponse } from './transaction';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 
 // Token addresses
 export const TOKENS = {
@@ -85,15 +87,39 @@ export const fetchQuote = async (
     return response.json();
 };
 
-export const executeSwap = async (
-    orderResponse: OrderResponse,
-    publicKey: PublicKey
-): Promise<void> => {
-    if (!orderResponse.transaction) {
-        throw new Error('No transaction available in order response');
-    }
+export const useSwap = () => {
+    const { connection } = useConnection();
+    const { publicKey, wallet } = useWallet();
 
-    // Here you would implement the transaction signing and sending
-    // This is a placeholder for the actual implementation
-    console.log('Executing swap with order response:', orderResponse);
+    const executeSwap = async (
+        orderResponse: OrderResponse,
+        publicKey: PublicKey
+    ): Promise<ExecuteResponse> => {
+        if (!orderResponse.transaction || !wallet) {
+            throw new Error('No transaction available or wallet not connected');
+        }
+
+        try {
+            // Sign the transaction
+            const signedTransaction = await signTransaction(
+                orderResponse.transaction,
+                wallet
+            );
+
+            // Execute the order
+            const executeResponse = await executeOrder(
+                signedTransaction,
+                orderResponse.requestId
+            );
+
+            return executeResponse;
+        } catch (error) {
+            console.error('Error executing swap:', error);
+            throw error;
+        }
+    };
+
+    return {
+        executeSwap
+    };
 }; 
