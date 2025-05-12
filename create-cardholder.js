@@ -19,9 +19,9 @@ const auth = 'Basic ' + Buffer.from(
  * - active: Whether the account is active
  */
 const cardholderPayload = {
-  first_name: 'Devnet',
-  last_name: 'User',
-  email: `devnet_${Date.now()}@example.com`,
+  first_name: 'Derek',
+  last_name: 'Liew',
+  email: `derek@gmail.com`,
   active: true
 };
 
