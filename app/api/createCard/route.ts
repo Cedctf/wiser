@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       email: email,
       active: true
     };
-    
+
     const cardholderRes = await fetch(`${MARQETA_URL}/users`, {
       method: 'POST',
       headers: {
