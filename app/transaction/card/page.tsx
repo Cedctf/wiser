@@ -167,9 +167,9 @@ export default function SimulateTransactionCard() {
       
       {/* Header */}
       <header className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-white text-center">Simulate Card Transaction</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-white text-center">Make Card Transaction</h1>
         <p className="text-white/80 text-center mt-2 max-w-2xl mx-auto">
-          Connect your wallet and enter card details to simulate a payment.
+          Connect your wallet and enter card details to make a payment.
         </p>
       </header>
 
@@ -180,7 +180,7 @@ export default function SimulateTransactionCard() {
               <CreditCard className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
               <h2 className="text-2xl font-bold text-white mb-4">Connect Your Wallet</h2>
               <p className="text-white/70 mb-6">
-                Please connect your Solana wallet to simulate a card transaction
+                Please connect your Solana wallet to make a card transaction
               </p>
             </div>
           ) : !transactionResult ? (
@@ -311,13 +311,7 @@ export default function SimulateTransactionCard() {
                         <option value="JPY">JPY</option>
                       </select>
                     </div>
-                  </div>
-
-                  <div className="bg-white/5 p-4 rounded-lg mt-4">
-                    <p className="text-white/70 text-sm">
-                      This is a simulation. No actual transaction will be processed and no funds will be moved. Your wallet address is used as the token.
-                    </p>
-                  </div>
+                  </div>           
                 </div>
               </div>
 
@@ -404,7 +398,7 @@ export default function SimulateTransactionCard() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-3 gap-4">
                     <div>
                       <p className="text-white/60 text-sm">Amount</p>
                       <p className="text-white font-medium">
@@ -435,7 +429,7 @@ export default function SimulateTransactionCard() {
                   onClick={resetTransaction}
                   className="bg-indigo-800 hover:bg-indigo-900 text-white font-bold px-8 py-4 rounded-xl"
                 >
-                  Simulate Another Transaction
+                  Make Another Transaction
                 </button>
               </div>
             </motion.div>
