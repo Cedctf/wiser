@@ -110,20 +110,21 @@ export async function POST(request: Request) {
 
     console.log('Marqeta response:', cardData);
 
-    if (!cardRes.ok || !cardData.token) {
-      return NextResponse.json(
-        { error: `Failed to simulate transaction: ${cardData.error_message || JSON.stringify(cardData)}` },
-        { status: cardRes.status }
-      );
-    }
-
     return NextResponse.json({
       success: true,
-      transaction: {
-        token: cardData.transaction.token,
-        amount: cardData.transaction.amount,
-        status: cardData.transaction.state,
-        response: cardData.transaction.response
+      cardholder: {
+        token: cardholderToken,
+        firstName,
+        lastName,
+        email
+      },
+      card: {
+        token: cardToken,
+        lastFour: cardData.last_four,
+        expiration: cardData.expiration,
+        state: cardData.state,
+        pan: panData ? panData.pan : null,
+        cvv: panData ? panData.cvv_number : null
       }
     });
 

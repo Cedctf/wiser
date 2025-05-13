@@ -160,7 +160,7 @@ export default function CreateCardPage() {
               <p><span className="font-medium">Card Number:</span> {cardDetails.card.pan || 'Not available'}</p>
               <p><span className="font-medium">Last 4:</span> {cardDetails.card.lastFour}</p>
               <p><span className="font-medium">Expiration:</span> {cardDetails.card.expiration}</p>
-              <p><span className="font-medium">CVV:</span> {cardDetails.card.cvv}</p>
+              <p><span className="font-medium">CVV:</span> 999</p>
               <p><span className="font-medium">Status:</span> {cardDetails.card.state}</p>
               <p><span className="font-medium">Card Token:</span> {cardDetails.card.token}</p>
             </div>
