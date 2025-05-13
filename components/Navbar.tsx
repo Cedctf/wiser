@@ -37,26 +37,15 @@ export default function Navbar({ onConnect, isWalletConnected }: NavbarProps) {
         </Link>
 
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="/createCard" className="text-white hover:text-yellow-300 transition-colors">
+          <Link href="/createCard" className="text-white hover:text-indigo-400 transition-colors">
             Create Card
           </Link>
-          <Link href="/createWallet" className="text-white hover:text-yellow-300 transition-colors">
+          <Link href="/createWallet" className="text-white hover:text-indigo-400 transition-colors">
             Create Wallet
           </Link>
-          <div className="relative group">
-            <span className="text-white hover:text-yellow-300 transition-colors cursor-pointer">Transactions</span>
-            <div className="absolute left-0 mt-2 w-48 bg-black/80 backdrop-blur-md rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <Link href="/transaction/card" className="block px-4 py-2 text-sm text-white hover:bg-white/10">
-                Card Transaction
-              </Link>
-              <Link
-                href="/transaction/wallet"
-                className="block px-4 py-2 text-sm text-white hover:bg-white/10"
-              >
-                Wallet Transaction
-              </Link>
-            </div>
-          </div>
+          <Link href="/transaction/card" className="text-white hover:text-indigo-400 transition-colors">
+            Transactions
+          </Link>
         </div>
 
         <div className="flex items-center">
