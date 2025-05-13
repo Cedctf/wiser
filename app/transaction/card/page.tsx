@@ -3,11 +3,18 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { CreditCard, ArrowRight, Check, RefreshCw, DollarSign, CreditCard as CardIcon } from "lucide-react"
+import { CreditCard, ArrowRight, Check, RefreshCw, DollarSign, CreditCard as CardIcon, Wallet, Copy } from "lucide-react"
 import { useWallet } from '@solana/wallet-adapter-react';
 import Navbar from "@/components/Navbar"
 import { Connection, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { depositSol } from '@/utils/Deposit';
+import dynamic from 'next/dynamic';
+
+// Dynamically import WalletMultiButton with SSR disabled
+const DynamicWalletMultiButton = dynamic(
+  () => import('@solana/wallet-adapter-react-ui').then(mod => mod.WalletMultiButton),
+  { ssr: false }
+);
 
 interface TransactionResponse {
   success: boolean;
@@ -270,12 +277,13 @@ export default function SimulateTransactionCard() {
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="bg-black/20 backdrop-blur-lg rounded-2xl p-8 md:p-12">
           {!connected ? (
-            <div className="text-center p-6">
-              <CreditCard className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-white mb-4">Connect Your Wallet</h2>
-              <p className="text-white/70 mb-6">
-                Please connect your Solana wallet to make a card transaction
+            <div className="flex flex-col items-center justify-center py-12">
+              <Wallet className="w-16 h-16 text-indigo-400 mb-6" />
+              <h2 className="text-2xl font-bold text-white mb-6">Connect Your Wallet</h2>
+              <p className="text-white/70 text-center mb-8 max-w-md">
+                Connect your Solana wallet to make a card transaction linked to your wallet address.
               </p>
+              <DynamicWalletMultiButton className="bg-yellow-400 hover:bg-yellow-500 text-black font-medium rounded-md px-8 py-4 text-lg" />
             </div>
           ) : !transactionResult ? (
             <div className="space-y-8">
