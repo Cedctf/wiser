@@ -39,7 +39,7 @@ export default function CardDisplay() {
         <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 flex flex-col justify-between transform-style-preserve-3d">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-1">
-              <div className="text-yellow-400 font-bold text-lg">SOLCARD</div>
+              <div className="text-yellow-400 font-bold text-lg">WISER</div>
               <div className="text-white/60 text-xs">PREMIUM</div>
             </div>
             <div className="w-12 h-10 rounded-md flex items-center justify-center">
@@ -104,7 +104,7 @@ export default function CardDisplay() {
         <div className="w-full h-full bg-gradient-to-br from-pink-500 to-pink-700 rounded-xl p-6 flex flex-col justify-between transform-style-preserve-3d">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-1">
-              <div className="text-white font-bold text-lg">SOLCARD</div>
+              <div className="text-white font-bold text-lg">WISER</div>
               <div className="text-white/60 text-xs">PLATINUM</div>
             </div>
             <div className="w-12 h-10 rounded-md flex items-center justify-center">
@@ -169,7 +169,7 @@ export default function CardDisplay() {
         <div className="w-full h-full bg-gradient-to-br from-purple-500 to-purple-800 rounded-xl p-6 flex flex-col justify-between transform-style-preserve-3d">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-1">
-              <div className="text-white font-bold text-lg">SOLCARD</div>
+              <div className="text-white font-bold text-lg">WISER</div>
               <div className="text-white/60 text-xs">INFINITE</div>
             </div>
             <div className="w-12 h-10 rounded-md flex items-center justify-center">
