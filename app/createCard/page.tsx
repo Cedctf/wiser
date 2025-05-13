@@ -247,20 +247,20 @@ export default function Home() {
                     >
                       <div className="flex justify-between items-start">
                         <div className="flex flex-col gap-1">
-                          <div className="text-indigo-400 font-bold text-lg">WISER</div>
+                          <div className="text-yellow-400 font-bold text-lg">WISER</div>
                           <div className="text-white/60 text-xs">PREMIUM</div>
                         </div>
                         <div className="w-12 h-10 rounded-md flex items-center justify-center">
-                          <Wallet className="w-6 h-6 text-indigo-400" />
+                          <Wallet className="w-6 h-6 text-yellow-400" />
                         </div>
                       </div>
 
                       {/* EMV Chip */}
                       <div className="w-12 h-10 mt-2">
-                        <div className="w-12 h-9 bg-gradient-to-br from-indigo-700 to-indigo-900 rounded-md flex items-center justify-center overflow-hidden">
+                        <div className="w-12 h-9 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-md flex items-center justify-center overflow-hidden">
                           <div className="w-full h-full grid grid-cols-3 grid-rows-3 gap-px">
                             {Array.from({ length: 9 }).map((_, i) => (
-                              <div key={i} className="bg-indigo-600/30 w-full h-full"></div>
+                              <div key={i} className="bg-yellow-500/30 w-full h-full"></div>
                             ))}
                           </div>
                         </div>
@@ -278,7 +278,7 @@ export default function Home() {
                             <div className="text-white text-sm">{cardDetails.expiry}</div>
                           </div>
                           <div className="flex items-center">
-                            <div className="text-indigo-400 font-bold">SOL</div>
+                            <div className="text-yellow-400 font-bold">SOL</div>
                           </div>
                         </div>
                       </div>
