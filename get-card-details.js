@@ -6,7 +6,7 @@ const MARQETA_URL = 'https://sandbox-api.marqeta.com/v3';
 const auth = 'Basic ' + Buffer.from(`${process.env.MARQETA_APP_TOKEN}:${process.env.MARQETA_ACCESS_TOKEN}`).toString('base64');
 
 // Replace with your card token from create-card.js response
-const CARD_TOKEN = 'devcard_1746813546324';
+const CARD_TOKEN = 'devcard_1746814699680';
 
 /**
  * Retrieves sensitive card data including full PAN and expiry

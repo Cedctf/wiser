@@ -7,7 +7,7 @@ const auth = 'Basic ' + Buffer.from(`${process.env.MARQETA_APP_TOKEN}:${process.
 
 // Use the cardholder token from the create-cardholder.js script
 // You can pass this as a command line argument if needed
-const CARDHOLDER_TOKEN = '4fb183c4-c3a4-4e1d-abc1-af83be6af56f';
+const CARDHOLDER_TOKEN = 'bbafc74d-e458-45ea-aea3-2a218bd0ccf8';
 
 // Card product token obtained from the Marqeta API
 const CARD_PRODUCT_TOKEN = '7c373289-71b9-4076-b431-e7389bf606e4';
@@ -67,5 +67,4 @@ async function createCard() {
   }
 }
 
-// Execute the function
 createCard();
