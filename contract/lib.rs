@@ -6,17 +6,15 @@ declare_id!("GArNcH5X1sQka24mZvrGuA3QqDhvE9CBe35ZugwNevoH");
 pub mod super_minimal {
     use super::*;
 
-    // Initialize the vault PDA (must be called once before using deposit/withdraw)
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
         msg!("Vault initialized");
         Ok(())
     }
 
-    // Anyone can deposit SOL into the vault PDA
     pub fn deposit(ctx: Context<Deposit>, amount: u64) -> Result<()> {
         let ix = anchor_lang::solana_program::system_instruction::transfer(
             ctx.accounts.depositor.key,
-            ctx.accounts.vault.to_account_info().key, // Changed to access the AccountInfo
+            ctx.accounts.vault.to_account_info().key, 
             amount,
         );
         anchor_lang::solana_program::program::invoke(
@@ -32,22 +30,18 @@ pub mod super_minimal {
         Ok(())
     }
 
-    // Only the authority can withdraw SOL from the vault PDA
     pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
     let vault_info = ctx.accounts.vault.to_account_info();
     let vault_balance = vault_info.lamports();
     
-    // Get rent-exempt minimum
     let rent = Rent::get()?;
     let rent_exempt_min = rent.minimum_balance(8);
     
-    // Check we're not withdrawing too much
     require!(
         vault_balance >= amount + rent_exempt_min,
         ErrorCode::InsufficientFunds
     );
     
-    // Transfer lamports
     **vault_info.try_borrow_mut_lamports()? -= amount;
     **ctx.accounts.recipient.try_borrow_mut_lamports()? += amount;
     
@@ -56,11 +50,9 @@ pub mod super_minimal {
 }
 }
 
-// New account structure for the vault
 #[account]
 pub struct VaultAccount {}
 
-// New instruction to initialize the vault
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     #[account(mut)]
@@ -69,7 +61,7 @@ pub struct Initialize<'info> {
     #[account(
         init,
         payer = payer,
-        space = 8,  // Minimum account size
+        space = 8,  
         seeds = [b"vault"],
         bump
     )]
@@ -105,8 +97,6 @@ pub struct Withdraw<'info> {
     #[account(mut)]
     pub recipient: AccountInfo<'info>,
 
-    // You can optionally add authority constraints here
-    // For example: #[account(address = AUTHORITY_PUBKEY)]
     #[account()]
     pub authority: Signer<'info>,
 
