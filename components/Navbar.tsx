@@ -46,11 +46,11 @@ export default function Navbar({ onConnect, isWalletConnected }: NavbarProps) {
           <div className="relative group">
             <span className="text-white hover:text-yellow-300 transition-colors cursor-pointer">Transactions</span>
             <div className="absolute left-0 mt-2 w-48 bg-black/80 backdrop-blur-md rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <Link href="/simulate-transaction/card" className="block px-4 py-2 text-sm text-white hover:bg-white/10">
+              <Link href="/transaction/card" className="block px-4 py-2 text-sm text-white hover:bg-white/10">
                 Card Transaction
               </Link>
               <Link
-                href="/simulate-transaction/wallet"
+                href="/transaction/wallet"
                 className="block px-4 py-2 text-sm text-white hover:bg-white/10"
               >
                 Wallet Transaction
