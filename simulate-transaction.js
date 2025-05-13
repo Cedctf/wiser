@@ -8,7 +8,7 @@ const auth = 'Basic ' + Buffer.from(
 ).toString('base64');
 
 // Replace with your actual card token from the previous step
-const CARD_TOKEN = 'devcard_1746819960107';
+const CARD_TOKEN = '4Rm9G4g4q3jN9yEkyBpPYycy7vSSR4ae5RCP';
 
 // Optional: Set to your webhook endpoint, username, and password if you want notifications
 const WEBHOOK_ENDPOINT = ''; // e.g. 'https://your-webhook-url.com/'

@@ -11,7 +11,14 @@ const auth = 'Basic ' + Buffer.from(
 
 export async function POST(request: Request) {
   try {
-    const { firstName, lastName, email } = await request.json();
+    const { firstName, lastName, email, walletAddress } = await request.json();
+
+    if (!walletAddress) {
+      return NextResponse.json(
+        { error: 'Wallet address is required' },
+        { status: 400 }
+      );
+    }
 
     // Step 1: Create cardholder
     const cardholderPayload = {
@@ -41,11 +48,11 @@ export async function POST(request: Request) {
     const cardholderData = await cardholderRes.json();
     const cardholderToken = cardholderData.token;
 
-    // Step 2: Create card
+    // Step 2: Create card using first 36 characters of wallet address as token
     const cardPayload = {
       card_product_token: CARD_PRODUCT_TOKEN,
       user_token: cardholderToken,
-      token: `devcard_${Date.now()}`
+      token: walletAddress.substring(0, 36) // Use first 36 characters of wallet address
     };
 
     const cardRes = await fetch(`${MARQETA_URL}/cards`, {
@@ -101,21 +108,22 @@ export async function POST(request: Request) {
       panData = await panRes.json();
     }
 
+    console.log('Marqeta response:', cardData);
+
+    if (!cardRes.ok || !cardData.token) {
+      return NextResponse.json(
+        { error: `Failed to simulate transaction: ${cardData.error_message || JSON.stringify(cardData)}` },
+        { status: cardRes.status }
+      );
+    }
+
     return NextResponse.json({
       success: true,
-      cardholder: {
-        token: cardholderToken,
-        firstName,
-        lastName,
-        email
-      },
-      card: {
-        token: cardToken,
-        lastFour: cardDetails.last_four,
-        expiration: cardDetails.expiration,
-        state: cardDetails.state,
-        pan: panData?.pan || null,
-        cvv: '999' // Hardcoded CVV as requested
+      transaction: {
+        token: cardData.transaction.token,
+        amount: cardData.transaction.amount,
+        status: cardData.transaction.state,
+        response: cardData.transaction.response
       }
     });
 
