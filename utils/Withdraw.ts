@@ -1,6 +1,7 @@
 import { Connection, PublicKey, Transaction } from '@solana/web3.js';
 import { AnchorProvider, Program, BN } from '@project-serum/anchor';
 import idl from '@/public/idl.json';
+import AuthoritySigner from './AuthoritySigner';
 
 // Convert SOL to lamports (1 SOL = 1,000,000,000 lamports)
 const SOL_TO_LAMPORTS = 1_000_000_000;
@@ -15,19 +16,18 @@ const [vaultPda] = PublicKey.findProgramAddressSync(
 );
 
 /**
- * Withdraws SOL from the vault
+ * Withdraws SOL from the vault using the authority private key from .env
  * @param amount Amount in SOL (not lamports)
  * @param recipient Recipient wallet address
- * @param wallet Phantom wallet instance (must be the authority)
  * @returns Transaction signature
  */
 export async function withdrawSol(
   amount: number, 
-  recipient: string,
-  wallet: any
+  recipient: string
 ): Promise<string> {
-  if (!wallet?.publicKey) {
-    throw new Error('Wallet not connected');
+  const authorityPublicKey = await AuthoritySigner.getPublicKey();
+  if (!authorityPublicKey) {
+    throw new Error('Authority wallet not initialized');
   }
   
   // Convert SOL to lamports
@@ -35,16 +35,16 @@ export async function withdrawSol(
   
   const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
   
-  // Create provider with Phantom wallet
+  // Create provider with AuthoritySigner
   const provider = new AnchorProvider(
     connection,
     {
-      publicKey: wallet.publicKey,
+      publicKey: authorityPublicKey,
       signTransaction: async (tx: Transaction) => {
-        return await wallet.signTransaction(tx);
+        return await AuthoritySigner.signTransaction(tx);
       },
       signAllTransactions: async (txs: Transaction[]) => {
-        return await wallet.signAllTransactions(txs);
+        return await AuthoritySigner.signAllTransactions(txs);
       }
     },
     { commitment: 'confirmed' }
@@ -59,7 +59,7 @@ export async function withdrawSol(
     .accounts({
       vault: vaultPda,
       recipient: new PublicKey(recipient),
-      authority: wallet.publicKey,
+      authority: authorityPublicKey,
       systemProgram: PublicKey.default,
     })
     .rpc();
@@ -68,27 +68,27 @@ export async function withdrawSol(
 }
 
 /**
- * Initialize the vault (must be called once before using the vault)
- * @param wallet Phantom wallet instance
+ * Initialize the vault using the authority private key from .env
  * @returns Transaction signature
  */
-export async function initializeVault(wallet: any): Promise<string> {
-  if (!wallet?.publicKey) {
-    throw new Error('Wallet not connected');
+export async function initializeVault(): Promise<string> {
+  const authorityPublicKey = await AuthoritySigner.getPublicKey();
+  if (!authorityPublicKey) {
+    throw new Error('Authority wallet not initialized');
   }
   
   const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
   
-  // Create provider with Phantom wallet
+  // Create provider with AuthoritySigner
   const provider = new AnchorProvider(
     connection,
     {
-      publicKey: wallet.publicKey,
+      publicKey: authorityPublicKey,
       signTransaction: async (tx: Transaction) => {
-        return await wallet.signTransaction(tx);
+        return await AuthoritySigner.signTransaction(tx);
       },
       signAllTransactions: async (txs: Transaction[]) => {
-        return await wallet.signAllTransactions(txs);
+        return await AuthoritySigner.signAllTransactions(txs);
       }
     },
     { commitment: 'confirmed' }
@@ -101,7 +101,7 @@ export async function initializeVault(wallet: any): Promise<string> {
   const tx = await program.methods
     .initialize()
     .accounts({
-      payer: wallet.publicKey,
+      payer: authorityPublicKey,
       vault: vaultPda,
       systemProgram: PublicKey.default,
     })
