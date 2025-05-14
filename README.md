@@ -9,6 +9,7 @@ With Wiser you can:
 
 In both flows, Wiser routes the payment and charges a low transaction fee.
 
+---
 
 ## 💡 Inspiration
 
@@ -21,6 +22,7 @@ Our team constantly juggle between fiat and crypto, and we saw two major pain po
 
 That question sparked Wiser: the invisible layer unifying Visa rails and any blockchain.
 
+---
 
 ## 🚧 The Problem
 
@@ -28,6 +30,7 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
 - **On-Ramp Complexity** – Fiat users struggle with wallet setup, private keys, and gas management.  
 - **Merchant Risk** – Businesses worry about volatility and settlement delays when accepting crypto.
 
+---
 
 ## 🔑 The Solution
 
@@ -35,6 +38,7 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
   - **Wallet → Card**: User sends crypto to Wiser; Wiser pays the merchant in fiat via Visa/Mastercard rails, debiting the user’s on-chain balance.  
   - **Card → Wallet**: User pays Wiser with their debit/credit card; Wiser pays the merchant in crypto on-chain, debiting the user’s card.   
 
+---
 
 ## ⚙️ How Our Project Works
 
@@ -52,6 +56,7 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
 5. **Fiat Settlement**  
    Wiser settles the merchant in fiat via Visa/Mastercard rails, debiting the user’s on-chain balance.
 
+---
 
 ### B. Fiat → Crypto Flow (Create Wallet + Spend)
 
@@ -64,5 +69,4 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
 4. **On-Chain Transfer**  
    Users can send the transaction from derived wallet (even with zero balance) and covers the gas. After it succeeds, Wiser charges the linked card for the crypto amount plus a low     transaction fee
 
-
-
+---
