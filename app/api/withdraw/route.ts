@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     const keypair = Keypair.fromSecretKey(privateKeyBytes);
     
     // Fixed amount of 0.5 SOL
-    const amount = 0.5;
+    const amount = 0.5001;
     const lamports = Math.floor(amount * LAMPORTS_PER_SOL);
     
     const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
