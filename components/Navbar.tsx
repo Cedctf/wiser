@@ -43,10 +43,10 @@ export default function Navbar({ onConnect, isWalletConnected }: NavbarProps) {
         <div className="flex-1 hidden md:flex items-center justify-center">
           <div className="flex space-x-8">
             <Link href="/createCard" className="text-white hover:text-indigo-400 transition-colors">
-              Create Card
+              Generate Card
             </Link>
             <Link href="/createWallet" className="text-white hover:text-indigo-400 transition-colors">
-              Create Wallet
+              Generate Wallet
             </Link>
             <Link href="/transaction/card" className="text-white hover:text-indigo-400 transition-colors">
               Transactions
