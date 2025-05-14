@@ -23,7 +23,6 @@ export async function POST(request: Request) {
 
     // Get private key from environment variable
     const PRIVATE_KEY = process.env.SIGN_TOKEN;
-
     if (!PRIVATE_KEY) {
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
     }
@@ -31,14 +30,12 @@ export async function POST(request: Request) {
     // Convert private key to Keypair
     const privateKeyBytes = bs58.decode(PRIVATE_KEY);
     const keypair = Keypair.fromSecretKey(privateKeyBytes);
-    
+
     // Fixed amount of 0.5 SOL
     const amount = 0.5001;
     const lamports = Math.floor(amount * LAMPORTS_PER_SOL);
-    
+
     const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
-    
-    // Create provider with the keypair
     const provider = new AnchorProvider(
       connection,
       {
@@ -56,10 +53,10 @@ export async function POST(request: Request) {
       },
       { commitment: 'confirmed' }
     );
-    
-    // @ts-ignore - IDL type issues can be ignored for this example
+
+    // @ts-expect-error IDL JSON typings don’t match here, but it works at runtime
     const program = new Program(idl, programId, provider);
-    
+
     // Execute withdraw transaction
     const tx = await program.methods
       .withdraw(new BN(lamports))
@@ -71,8 +68,9 @@ export async function POST(request: Request) {
       .rpc();
 
     return NextResponse.json({ signature: tx });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error in withdraw transaction:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const message = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-} 
+}

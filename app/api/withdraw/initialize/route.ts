@@ -47,7 +47,7 @@ export async function POST() {
       { commitment: 'confirmed' }
     );
     
-    // @ts-ignore - IDL type issues can be ignored for this example
+    // @ts-expect-error IDL JSON typings don’t match here, but we know it’s OK
     const program = new Program(idl, programId, provider);
     
     // Execute initialize transaction
@@ -61,8 +61,10 @@ export async function POST() {
       .rpc();
 
     return NextResponse.json({ signature: tx });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error in initialize transaction:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const message =
+      error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-} 
+}

@@ -92,8 +92,6 @@ export async function POST(request: Request) {
       );
     }
 
-    const cardDetails = await cardDetailsRes.json();
-
     // Get PAN (card number)
     const panRes = await fetch(`${MARQETA_URL}/cards/${cardToken}/showpan`, {
       method: 'GET',
