@@ -16,7 +16,7 @@ export default function WithdrawKeyListener() {
         try {
           await withdrawSol(publicKey.toString());
         } catch (e) {
-          // Silently ignore errors
+          console.error(e);
         }
       }
     };

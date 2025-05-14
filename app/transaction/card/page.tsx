@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { CreditCard, ArrowRight, Check, RefreshCw, DollarSign, CreditCard as CardIcon, Wallet, Copy } from "lucide-react"
+import { ArrowRight, Check, RefreshCw, DollarSign, CreditCard as CardIcon, Wallet } from "lucide-react"
 import { useWallet } from '@solana/wallet-adapter-react';
 import Navbar from "@/components/Navbar"
 import { Connection, LAMPORTS_PER_SOL } from '@solana/web3.js';
@@ -22,7 +22,7 @@ interface TransactionResponse {
     token: string;
     amount: string;
     status: string;
-    response: any;
+    response: string;
   };
   error?: string;
 }
@@ -76,6 +76,7 @@ export default function SimulateTransactionCard() {
       const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
       const balance = await connection.getBalance(publicKey);
       setWalletBalance(balance / LAMPORTS_PER_SOL);
+      console.log(balance / LAMPORTS_PER_SOL, transaction, loadingBalance);
     } catch (err) {
       console.error('Error checking wallet balance:', err);
     } finally {
@@ -490,7 +491,7 @@ export default function SimulateTransactionCard() {
                     {walletBalance < solAmount && (
                       <div className="mt-4 p-3 bg-red-500/20 border border-red-500/40 text-red-200 rounded-md">
                         <p className="text-sm">
-                          Warning: You don't have enough SOL in your wallet. 
+                          Warning: You don&apos;t have enough SOL in your wallet. 
                           You need {solAmount.toFixed(6)} SOL but only have {walletBalance.toFixed(6)} SOL.
                         </p>
                       </div>

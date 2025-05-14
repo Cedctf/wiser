@@ -9,7 +9,7 @@ interface TransactionResponse {
     token: string;
     amount: string;
     status: string;
-    response: any;
+    response: string;
   };
   error?: string;
 }

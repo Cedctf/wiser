@@ -30,6 +30,7 @@ export default function PythTestPage() {
         setSolUsdPrice(data.solUsdPrice?.toString() ?? null);
       }
     } catch (err) {
+      console.error(err);
       setError('Request failed');
     } finally {
       setLoading(false);

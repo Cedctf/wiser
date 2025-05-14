@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar"
 import { useWallet } from '@solana/wallet-adapter-react';
 
 export default function CreateWallet() {
-  const { connected, publicKey } = useWallet();
+  const { connected } = useWallet();
   const [cardDetails, setCardDetails] = useState({
     cardHolder: "",
     cardNumber: "",
@@ -91,8 +91,12 @@ export default function CreateWallet() {
         publicKey: data.solana_public_key,
         secretKey: data.solana_secret_key
       });
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setIsGenerating(false);
     }

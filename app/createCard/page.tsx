@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Wallet, Copy, Check, RefreshCw, ArrowRight } from "lucide-react"
+import { Wallet, Copy, Check, RefreshCw } from "lucide-react"
 import { useWallet } from '@solana/wallet-adapter-react';
 import Navbar from "@/components/Navbar"
 import dynamic from 'next/dynamic';

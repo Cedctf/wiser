@@ -267,7 +267,7 @@ export default function CardPayPage() {
                   <p className="font-medium">Amount: ${parseFloat(amount).toFixed(2)} USD</p>
                   <p className="font-medium">SOL Equivalent: {solAmount.toFixed(6)} SOL</p>
                   {walletBalance < solAmount && (
-                    <p className="text-red-600 mt-2">Warning: You don't have enough SOL in your wallet.</p>
+                    <p className="text-red-600 mt-2">Warning: You don&apos;t have enough SOL in your wallet.</p>
                   )}
                 </div>
 
