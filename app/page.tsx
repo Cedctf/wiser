@@ -67,10 +67,10 @@ export default function Home() {
             transition={{ delay: 0.6, duration: 0.8 }}
           >
             <a href="/createCard" className="bg-indigo-800 hover:bg-indigo-900 text-white font-bold px-8 py-6 rounded-xl text-lg flex items-center">
-              Create Card <ArrowRight className="ml-2 h-5 w-5" />
+              Generate Card <ArrowRight className="ml-2 h-5 w-5" />
             </a>
             <a href="/createWallet" className="bg-indigo-800 hover:bg-indigo-900 text-white font-bold px-8 py-6 rounded-xl text-lg flex items-center">
-              Create Wallet <ArrowRight className="ml-2 h-5 w-5" />
+              Generate Wallet <ArrowRight className="ml-2 h-5 w-5" />
             </a>
           </motion.div>
         </motion.div>

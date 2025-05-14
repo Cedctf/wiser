@@ -1,7 +1,7 @@
 import { PublicKey } from '@solana/web3.js';
 
 /**
- * Withdraws 0.5 SOL from the vault to the specified recipient
+ * Withdraws SOL from the vault to the specified recipient
  * @param recipient Recipient wallet address
  * @returns Transaction signature
  */
