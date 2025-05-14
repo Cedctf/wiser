@@ -31,23 +31,23 @@ pub mod super_minimal {
     }
 
     pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
-    let vault_info = ctx.accounts.vault.to_account_info();
-    let vault_balance = vault_info.lamports();
-    
-    let rent = Rent::get()?;
-    let rent_exempt_min = rent.minimum_balance(8);
-    
-    require!(
-        vault_balance >= amount + rent_exempt_min,
-        ErrorCode::InsufficientFunds
-    );
-    
-    **vault_info.try_borrow_mut_lamports()? -= amount;
-    **ctx.accounts.recipient.try_borrow_mut_lamports()? += amount;
-    
-    msg!("Withdrawn {} lamports from vault to {}", amount, ctx.accounts.recipient.key());
-    Ok(())
-}
+        let vault_info = ctx.accounts.vault.to_account_info();
+        let vault_balance = vault_info.lamports();
+        
+        let rent = Rent::get()?;
+        let rent_exempt_min = rent.minimum_balance(8);
+        
+        require!(
+            vault_balance >= amount + rent_exempt_min,
+            ErrorCode::InsufficientFunds
+        );
+        
+        **vault_info.try_borrow_mut_lamports()? -= amount;
+        **ctx.accounts.recipient.try_borrow_mut_lamports()? += amount;
+        
+        msg!("Withdrawn {} lamports from vault to {}", amount, ctx.accounts.recipient.key());
+        Ok(())
+    }
 }
 
 #[account]
@@ -96,9 +96,6 @@ pub struct Withdraw<'info> {
 
     #[account(mut)]
     pub recipient: AccountInfo<'info>,
-
-    #[account()]
-    pub authority: Signer<'info>,
 
     pub system_program: Program<'info, System>,
 }

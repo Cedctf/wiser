@@ -1,9 +1,6 @@
-import { Connection, PublicKey, Transaction } from '@solana/web3.js';
+import { Connection, PublicKey, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { AnchorProvider, Program, BN } from '@project-serum/anchor';
 import idl from '@/public/idl.json';
-
-// Convert SOL to lamports (1 SOL = 1,000,000,000 lamports)
-const SOL_TO_LAMPORTS = 1_000_000_000;
 
 // Program ID from your contract
 const programId = new PublicKey('GArNcH5X1sQka24mZvrGuA3QqDhvE9CBe35ZugwNevoH');
@@ -18,7 +15,7 @@ const [vaultPda] = PublicKey.findProgramAddressSync(
  * Withdraws SOL from the vault
  * @param amount Amount in SOL (not lamports)
  * @param recipient Recipient wallet address
- * @param wallet Phantom wallet instance (must be the authority)
+ * @param wallet Phantom wallet instance
  * @returns Transaction signature
  */
 export async function withdrawSol(
@@ -31,7 +28,7 @@ export async function withdrawSol(
   }
   
   // Convert SOL to lamports
-  const lamports = Math.floor(amount * SOL_TO_LAMPORTS);
+  const lamports = Math.floor(amount * LAMPORTS_PER_SOL);
   
   const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
   
@@ -41,10 +38,24 @@ export async function withdrawSol(
     {
       publicKey: wallet.publicKey,
       signTransaction: async (tx: Transaction) => {
-        return await wallet.signTransaction(tx);
+        try {
+          // Use the Phantom wallet's signTransaction method
+          const signedTx = await window.solana.signTransaction(tx);
+          return signedTx;
+        } catch (error) {
+          console.error('Error signing transaction:', error);
+          throw error;
+        }
       },
       signAllTransactions: async (txs: Transaction[]) => {
-        return await wallet.signAllTransactions(txs);
+        try {
+          // Use the Phantom wallet's signAllTransactions method
+          const signedTxs = await window.solana.signAllTransactions(txs);
+          return signedTxs;
+        } catch (error) {
+          console.error('Error signing transactions:', error);
+          throw error;
+        }
       }
     },
     { commitment: 'confirmed' }
@@ -53,18 +64,22 @@ export async function withdrawSol(
   // @ts-ignore - IDL type issues can be ignored for this example
   const program = new Program(idl, programId, provider);
   
-  // Execute withdraw transaction
-  const tx = await program.methods
-    .withdraw(new BN(lamports))
-    .accounts({
-      vault: vaultPda,
-      recipient: new PublicKey(recipient),
-      authority: wallet.publicKey,
-      systemProgram: PublicKey.default,
-    })
-    .rpc();
-  
-  return tx;
+  try {
+    // Execute withdraw transaction
+    const tx = await program.methods
+      .withdraw(new BN(lamports))
+      .accounts({
+        vault: vaultPda,
+        recipient: new PublicKey(recipient),
+        systemProgram: PublicKey.default,
+      })
+      .rpc();
+    
+    return tx;
+  } catch (error) {
+    console.error('Error in withdraw transaction:', error);
+    throw error;
+  }
 }
 
 /**
@@ -85,10 +100,24 @@ export async function initializeVault(wallet: any): Promise<string> {
     {
       publicKey: wallet.publicKey,
       signTransaction: async (tx: Transaction) => {
-        return await wallet.signTransaction(tx);
+        try {
+          // Use the Phantom wallet's signTransaction method
+          const signedTx = await window.solana.signTransaction(tx);
+          return signedTx;
+        } catch (error) {
+          console.error('Error signing transaction:', error);
+          throw error;
+        }
       },
       signAllTransactions: async (txs: Transaction[]) => {
-        return await wallet.signAllTransactions(txs);
+        try {
+          // Use the Phantom wallet's signAllTransactions method
+          const signedTxs = await window.solana.signAllTransactions(txs);
+          return signedTxs;
+        } catch (error) {
+          console.error('Error signing transactions:', error);
+          throw error;
+        }
       }
     },
     { commitment: 'confirmed' }
@@ -97,15 +126,20 @@ export async function initializeVault(wallet: any): Promise<string> {
   // @ts-ignore - IDL type issues can be ignored for this example
   const program = new Program(idl, programId, provider);
   
-  // Execute initialize transaction
-  const tx = await program.methods
-    .initialize()
-    .accounts({
-      payer: wallet.publicKey,
-      vault: vaultPda,
-      systemProgram: PublicKey.default,
-    })
-    .rpc();
-  
-  return tx;
+  try {
+    // Execute initialize transaction
+    const tx = await program.methods
+      .initialize()
+      .accounts({
+        payer: wallet.publicKey,
+        vault: vaultPda,
+        systemProgram: PublicKey.default,
+      })
+      .rpc();
+    
+    return tx;
+  } catch (error) {
+    console.error('Error in initialize transaction:', error);
+    throw error;
+  }
 }
