@@ -18,7 +18,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Always use only the first 36 characters
     const trimmedCardToken = cardToken.substring(0, 36);
 
     const payload = {
@@ -30,10 +29,10 @@ export async function POST(request: Request) {
       network: "VISA"
     };
 
-    // Log payload for debugging
     console.log('Simulating transaction with payload:', payload);
 
-    const res = await fetch(`${MARQETA_URL}/simulations/cardtransactions/authorization`, {
+    // Step 1: Simulate authorization
+    const authRes = await fetch(`${MARQETA_URL}/simulations/cardtransactions/authorization`, {
       method: 'POST',
       headers: {
         'Authorization': auth,
@@ -42,26 +41,56 @@ export async function POST(request: Request) {
       body: JSON.stringify(payload)
     });
 
-    const data = await res.json();
+    const authData = await authRes.json();
+    console.log('Authorization response:', authData);
 
-    // Log response for debugging
-    console.log('Marqeta response:', data);
-
-    // Defensive: check for transaction object
-    if (!res.ok || !data.transaction || !data.transaction.token) {
+    if (!authRes.ok || !authData.transaction || !authData.transaction.token) {
       return NextResponse.json(
-        { error: `Failed to simulate transaction: ${data.error_message || JSON.stringify(data)}` },
-        { status: res.status }
+        { error: `Failed to simulate transaction: ${authData.error_message || JSON.stringify(authData)}` },
+        { status: authRes.status }
+      );
+    }
+
+    const transactionToken = authData.transaction.token;
+
+    // Step 2: Simulate clearing
+    const clearingPayload = {
+      amount: amount.toString(),
+      original_transaction_token: transactionToken
+    };
+
+    const clearingRes = await fetch(`${MARQETA_URL}/simulate/clearing`, {
+      method: 'POST',
+      headers: {
+        'Authorization': auth,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(clearingPayload)
+    });
+
+    const clearingData = await clearingRes.json();
+    console.log('Clearing response:', clearingData);
+
+    if (!clearingRes.ok) {
+      return NextResponse.json(
+        { error: `Clearing step failed: ${clearingData.error_message || JSON.stringify(clearingData)}` },
+        { status: clearingRes.status }
       );
     }
 
     return NextResponse.json({
       success: true,
       transaction: {
-        token: data.transaction.token,
-        amount: data.transaction.amount,
-        status: data.transaction.state,
-        response: data.transaction.response
+        token: transactionToken,
+        amount: authData.transaction.amount,
+        status: authData.transaction.state,
+        response: authData.transaction.response
+      },
+      clearing: {
+        state: clearingData.state,
+        amount: clearingData.amount,
+        token: clearingData.token,
+        approval_code: clearingData.approval_code
       }
     });
 
@@ -72,4 +101,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-} 
+}

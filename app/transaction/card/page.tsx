@@ -38,7 +38,7 @@ export default function SimulateTransactionCard() {
 
   const [transactionDetails, setTransactionDetails] = useState({
     amount: "",
-    merchant: "Solana Merchant",
+    merchant: "Marqeta Storefront, St. Petersbu, 33705, USA",
     currency: "USD",
   })
 
@@ -390,10 +390,9 @@ export default function SimulateTransactionCard() {
                       <input
                         id="merchant"
                         name="merchant"
-                        placeholder="Coffee Shop"
                         value={transactionDetails.merchant}
-                        onChange={handleTransactionInputChange}
-                        className="w-full mt-1 bg-white/10 text-white border border-white/20 p-2 rounded-md"
+                        readOnly
+                        className="w-full mt-1 bg-white/5 text-white/70 border border-white/10 p-2 rounded-md cursor-not-allowed"
                       />
                     </div>
 
