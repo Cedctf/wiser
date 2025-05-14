@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     const cardPayload = {
       card_product_token: CARD_PRODUCT_TOKEN,
       user_token: cardholderToken,
-      token: walletAddress.substring(5, 36) // Use first 36 characters of wallet address
+      token: walletAddress.substring(0, 36) // Use first 36 characters of wallet address
     };
 
     const cardRes = await fetch(`${MARQETA_URL}/cards`, {
