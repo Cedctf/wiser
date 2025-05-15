@@ -49,6 +49,8 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
 
 ## ⚙️ How Our Project Works
 
+<img width="946" alt="Screenshot 2025-05-15 at 9 15 23 PM" src="https://github.com/user-attachments/assets/3193d160-a180-4212-9eb6-3dd28bac4d37" />
+
 **Bi-Directional Flows**  
   - **Wallet → Card**: User sends crypto to Wiser; Wiser pays the merchant in fiat via Visa/Mastercard rails, debiting the user’s on-chain balance.  
   - **Card → Wallet**: User pays Wiser with their debit/credit card; Wiser pays the merchant in crypto on-chain, debiting the user’s card.
