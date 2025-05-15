@@ -83,3 +83,27 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
    Users can send the transaction from derived wallet (even with zero balance) and covers the gas. After it succeeds, Wiser charges the linked card for the crypto amount plus a low     transaction fee.
 
 ---
+
+## 🛠 Tech Stack
+
+<img width="942" alt="Screenshot 2025-05-15 at 9 18 35 PM" src="https://github.com/user-attachments/assets/e9de9a65-6006-41ad-80dc-661ffc27a7ee" />
+
+
+- **UI**  
+  - Next.js (React + TypeScript)  
+  - Tailwind CSS (or your preferred styling)  
+  - Phantom Wallet SDK for seamless on-chain auth
+
+- **Card Issuance & Payments**  
+  - Marqeta API for card provisioning  
+  - Visa Network integration for global acceptance
+
+- **Platform Treasury**  
+  - **Finance Layer**: Off-chain bank account integrations  
+  - **Blockchain Layer**:  
+    - Solana smart-contract vaults (Rust + Anchor)  
+    - Automated rebalancing engine (Python)
+
+- **Oracles & Conversion**  
+  - Pyth Network for live fiat⇄crypto price feeds
+
