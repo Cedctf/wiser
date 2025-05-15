@@ -24,23 +24,34 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
 
 ---
 
-## 🚧 The Problem
+## 🚧 Problems
 
-- **Liquidity Friction** – Crypto holders must cash out through third-party cards with high spreads.  
-- **On-Ramp Complexity** – Fiat users struggle with wallet setup, private keys, and gas management.  
-- **Merchant Risk** – Businesses worry about volatility and settlement delays when accepting crypto.
+### For Web2 Users
+- **Onboarding Difficulty** – Fiat users struggle with wallet setup, private key management, and gas fees.  
+- **Trust and Safety Concerns** – Lack of clear regulation and security measures creates user distrust.  
+- **Barriers to Crypto** – Complex interfaces and jargon hinder mainstream adoption.  
+
+### For Web3 Users
+- **Unbanked Populations** – Crypto holders without bank access face challenges cashing out.  
+- **Self-Custody Requirement** – Users want to retain control of their private keys while transacting.  
 
 ---
 
 ## 🔑 The Solution
 
-- **Bi-Directional Flows**  
-  - **Wallet → Card**: User sends crypto to Wiser; Wiser pays the merchant in fiat via Visa/Mastercard rails, debiting the user’s on-chain balance.  
-  - **Card → Wallet**: User pays Wiser with their debit/credit card; Wiser pays the merchant in crypto on-chain, debiting the user’s card.   
+- **Two-Way Bridge, One Experience** – seamless, bi-directional transfers between fiat and crypto.  
+- **0 Pre-funding, 0 Staking** – no upfront capital lock ups or staking required.  
+- **Truly Self-Custody** – users always retain full control of their funds.  
+- **Global from Day One** – can instantly pefrom transactions.  
+- **Transparent On-Chain Settlement** – every transaction is auditable on the blockchain.    
 
 ---
 
 ## ⚙️ How Our Project Works
+
+**Bi-Directional Flows**  
+  - **Wallet → Card**: User sends crypto to Wiser; Wiser pays the merchant in fiat via Visa/Mastercard rails, debiting the user’s on-chain balance.  
+  - **Card → Wallet**: User pays Wiser with their debit/credit card; Wiser pays the merchant in crypto on-chain, debiting the user’s card.
 
 ### A. Crypto → Fiat Flow (Create Card + Spend)
 
