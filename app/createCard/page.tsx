@@ -20,7 +20,7 @@ export default function Home() {
   const [cardDetails, setCardDetails] = useState<{
     number: string
     expiry: string
-    ccv: string
+    cvv: string
     name: string
   } | null>(null)
   const [copied, setCopied] = useState(false)
@@ -87,13 +87,13 @@ export default function Home() {
       }
 
       // Always set CVV to "999" regardless of API response
-      const ccv = "999";
+      const cvv = "999";
 
       // Create card details object with data from API
       setCardDetails({
         number: formattedCardNumber,
         expiry,
-        ccv,
+        cvv,
         name: `${firstName.toUpperCase()} ${lastName.toUpperCase()}`,
       });
     } catch (error) {
@@ -331,12 +331,12 @@ export default function Home() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="ccv" className="text-white block mb-1">
-                          CCV
+                        <label htmlFor="cvv" className="text-white block mb-1">
+                          CVV
                         </label>
                         <input
-                          id="ccv"
-                          value={cardDetails.ccv}
+                          id="cvv"
+                          value={cardDetails.cvv}
                           readOnly
                           className="mt-1 bg-white/10 text-white border border-white/20 p-2 rounded-md w-full"
                         />

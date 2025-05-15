@@ -13,7 +13,7 @@ export default function CreateWallet() {
     cardHolder: "",
     cardNumber: "",
     expiryDate: "",
-    ccv: "",
+    cvv: "",
   })
 
   const [wallet, setWallet] = useState<{
@@ -58,7 +58,7 @@ export default function CreateWallet() {
       cardDetails.cardHolder.trim() !== "" &&
       cardDetails.cardNumber.replace(/\s/g, "").length === 16 &&
       /^\d{2}\/\d{2}$/.test(cardDetails.expiryDate) &&
-      cardDetails.ccv.length === 3
+      cardDetails.cvv.length === 3
     )
   }
 
@@ -183,14 +183,14 @@ export default function CreateWallet() {
                       </div>
 
                       <div>
-                        <label htmlFor="ccv" className="block text-white mb-1">
-                          CCV
+                        <label htmlFor="cvv" className="block text-white mb-1">
+                          CVV
                         </label>
                         <input
-                          id="ccv"
-                          name="ccv"
+                          id="cvv"
+                          name="cvv"
                           placeholder="123"
-                          value={cardDetails.ccv}
+                          value={cardDetails.cvv}
                           onChange={handleInputChange}
                           maxLength={3}
                           className="w-full mt-1 bg-white/10 text-white border border-white/20 p-2 rounded-md"
@@ -370,7 +370,7 @@ export default function CreateWallet() {
                       cardHolder: "",
                       cardNumber: "",
                       expiryDate: "",
-                      ccv: "",
+                      cvv: "",
                     })
                   }}
                   className="bg-indigo-800 hover:bg-indigo-900 text-white font-medium px-6 py-3 rounded-xl"
