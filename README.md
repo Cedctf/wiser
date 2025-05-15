@@ -90,9 +90,9 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
 
 
 - **UI**  
-  - Next.js (React + TypeScript)  
-  - Tailwind CSS (or your preferred styling)  
-  - Phantom Wallet SDK for seamless on-chain auth
+  - Next.js  
+  - Tailwind CSS 
+  - Phantom Wallet
 
 - **Card Issuance & Payments**  
   - Marqeta API for card provisioning  
@@ -101,7 +101,7 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
 - **Platform Treasury**  
   - **Finance Layer**: Off-chain bank account integrations  
   - **Blockchain Layer**:  
-    - Solana smart-contract vaults (Rust + Anchor)  
+    - Solana program vaults  
     - Automated rebalancing engine (Python)
 
 - **Oracles & Conversion**  
