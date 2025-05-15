@@ -67,6 +67,6 @@ That question sparked Wiser: the invisible layer unifying Visa rails and any blo
 3. **Price Quote**  
    Wiser fetches the live USD→crypto rate from the Pyth Network oracle.  
 4. **On-Chain Transfer**  
-   Users can send the transaction from derived wallet (even with zero balance) and covers the gas. After it succeeds, Wiser charges the linked card for the crypto amount plus a low     transaction fee
+   Users can send the transaction from derived wallet (even with zero balance) and covers the gas. After it succeeds, Wiser charges the linked card for the crypto amount plus a low     transaction fee.
 
 ---
